@@ -13,13 +13,23 @@ import java.util.Date;
 
 @Service
 public class JwtUtils {
-    @Value("${jwt.secret}")
+//    @Value("${jwt.secret:}")
     private String secret;
 
     private static SecretKey SECRET_KEY;
 
     @PostConstruct
     public void init() {
+
+        String envSecret = System.getenv("jwt.secret");
+        if (envSecret != null && !envSecret.isEmpty()) {
+            secret = envSecret;
+        }
+
+        if (secret == null || secret.isEmpty()) {
+            throw new IllegalStateException("jwt.secret is missing in both environment variables and application.properties");
+        }
+
         SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
