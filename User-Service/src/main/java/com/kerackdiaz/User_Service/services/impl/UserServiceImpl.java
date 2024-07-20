@@ -7,15 +7,18 @@ import com.kerackdiaz.User_Service.repositories.UserRepository;
 import com.kerackdiaz.User_Service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository UserRepository;
 
+    @Override
     public Map<String,Object> Register(RegisterRecord registerRecord){
         Map<String, Object> response = new HashMap<>();
         try {

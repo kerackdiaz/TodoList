@@ -23,12 +23,12 @@ public class AuthService {
 
     public AuthResponse register(singIn request) {
         //do validation if a user exist in DB
+
         request.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
-        User registeredUser = restTemplate.postForObject("http://localhost:8081/users", request, User.class);
-
+        User registeredUser = restTemplate.postForObject("http://localhost:8081/users/register", request, User.class);
+        assert registeredUser != null;
         String accessToken = jwtUtil.generateToken(registeredUser.getId(), registeredUser.getEmail(), registeredUser.getRole());
-        String refreshToken = jwtUtil.generateToken(registeredUser.getId(), registeredUser.getEmail(), registeredUser.getRole());
 
-        return new AuthResponse(accessToken, refreshToken);
+        return new AuthResponse(accessToken);
     }
 }

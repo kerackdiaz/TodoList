@@ -1,15 +1,16 @@
 package com.kerackdiaz.AuthServer.dtos;
 
 public class singIn {
+
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
-    public singIn(String firstName, String lastName, String username, String password) {
+    public singIn(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = username;
+        this.email = email;
         this.password = password;
     }
 
