@@ -8,18 +8,24 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-Server" />
         <module name="Gateway-server" />
-        <module name="AuthServer" />
         <module name="TaskServer" />
-        <module name="UserServer" />
         <module name="Config-service" />
+        <module name="User-Service" />
+        <module name="AuthService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AuthServer" target="17" />
+      <module name="UserServer" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AuthServer" options="-parameters" />
+      <module name="AuthService" options="-parameters" />
       <module name="Config-service" options="-parameters" />
       <module name="Gateway-server" options="-parameters" />
+      <module name="User-Service" options="-parameters" />
       <module name="eureka-Server" options="-parameters" />
     </option>
   </component>

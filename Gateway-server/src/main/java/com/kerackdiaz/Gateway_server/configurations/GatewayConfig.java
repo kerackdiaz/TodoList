@@ -16,12 +16,15 @@ public class GatewayConfig {
                 .route("task-service", r -> r.path("/tasks/**")
                         .filters(f-> f.filter(filter))
                         .uri("lb://task-service"))
-                .route("user-service", r -> r.path("/users/**")
+                .route("User-Service", r -> r.path("/users/**")
                         .filters(f-> f.filter(filter))
-                        .uri("lb://user-service"))
-                .route("auth-service", r -> r.path("/auth/**")
+                        .uri("lb://User-Service"))
+                .route("AuthServer", r -> r.path("/auth/**")
                         .filters(f-> f.filter(filter))
-                        .uri("lb://auth-service"))
+                        .uri("lb://AuthServer"))
+                .route("Gateway-server", r -> r.path("/swagger-ui/**")
+                        .filters(f-> f.filter(filter))
+                        .uri("lb://Gateway-server"))
                 .build();
     }
 }
