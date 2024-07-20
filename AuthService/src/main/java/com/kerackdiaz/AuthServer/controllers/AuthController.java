@@ -1,6 +1,7 @@
 package com.kerackdiaz.AuthServer.controllers;
 
 
+import com.kerackdiaz.AuthServer.dtos.LoginDTO;
 import com.kerackdiaz.AuthServer.dtos.singIn;
 import com.kerackdiaz.AuthServer.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,14 @@ public class AuthController {
     private AuthService authService;
 
 
-    @PostMapping(value = "/register")
+    @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody singIn request) throws Exception {
         return ResponseEntity.ok(authService.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO request) throws Exception {
+        return ResponseEntity.ok(authService.login(request));
     }
 
 }

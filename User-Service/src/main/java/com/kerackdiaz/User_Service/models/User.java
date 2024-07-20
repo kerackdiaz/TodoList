@@ -14,6 +14,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private String role;
     private List<Long> tasksId;
 
     public User() {
@@ -60,6 +61,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getRole() {return role;}
+
+    public void setRole(String role) {this.role = role;}
 
     public List<Long> getTasksId() {return tasksId;}
 
