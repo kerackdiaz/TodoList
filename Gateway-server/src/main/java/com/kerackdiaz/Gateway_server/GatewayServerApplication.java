@@ -15,13 +15,6 @@ public class GatewayServerApplication {
 		SpringApplication.run(GatewayServerApplication.class, args);
 	}
 
-	@Bean
-	public RouteLocator customRouterLocator(RouteLocatorBuilder builder) {
-		return builder.routes()
-				.route("task-service", r -> r.path("/api/tasks/**")
-						.uri("lb://task-service"))
-				.route("user-service", r -> r.path("/api/users/**")
-						.uri("lb://user-service"))
-				.build();
-	}
+
+
 }

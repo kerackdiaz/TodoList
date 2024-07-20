@@ -11,9 +11,12 @@ public class RouterValidator {
 
     public static final List<String> openApiEndpoints = List.of(
             "/auth/register",
-            "swagger-ui/");
+            "/swagger-ui/**",
+            "/v3/api-docs/**");
+
 
     public Predicate<ServerHttpRequest> isSecured =
             request -> openApiEndpoints.stream()
-            .noneMatch(uri -> request.getURI().getPath().contains(uri));
+                    .noneMatch(uri -> request.getURI()
+                            .getPath().matches(uri.replace("**", ".*")));
 }

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -26,24 +25,24 @@ public class AuthenticationFilter implements GatewayFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         if (validator.isSecured.test(request)) {
-           if(autMissing(request)){
-               return onError(exchange, HttpStatus.UNAUTHORIZED);
-           }
-           final String token = request.getHeaders().getOrEmpty("Authorization").get(0);
+            if (authMissing(request)) {
+                return onError(exchange);
+            }
+            final String token = request.getHeaders().getOrEmpty("Authorization").get(0).substring(7);
 
-           if (!jwtUtils.isTokenExpired(token)) {
-               return onError(exchange, HttpStatus.UNAUTHORIZED);
-           }
+            if (jwtUtils.isTokenExpired(token)) { //
+                return onError(exchange);
+            }
         }
-        return null;
+        return chain.filter(exchange);
     }
 
-    private Mono<Void> onError(ServerWebExchange exchange, HttpStatus httpStatus) {
+    private Mono<Void> onError(ServerWebExchange exchange) {
         ServerHttpResponse response = exchange.getResponse();
         return response.setComplete();
     }
 
-    private boolean autMissing(ServerHttpRequest request) {
+    private boolean authMissing(ServerHttpRequest request) {
         return !request.getHeaders().containsKey("Authorization");
     }
 }
