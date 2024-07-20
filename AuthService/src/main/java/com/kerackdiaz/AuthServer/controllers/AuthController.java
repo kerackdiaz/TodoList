@@ -19,7 +19,7 @@ public class AuthController {
 
 
     @PostMapping(value = "/register")
-    public ResponseEntity<?> register(@RequestBody singIn request) {
+    public ResponseEntity<?> register(@RequestBody singIn request) throws Exception {
         return ResponseEntity.ok(authService.register(request));
     }
 

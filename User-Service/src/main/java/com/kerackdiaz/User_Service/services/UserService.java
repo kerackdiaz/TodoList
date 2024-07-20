@@ -1,10 +1,9 @@
 package com.kerackdiaz.User_Service.services;
 
 import com.kerackdiaz.User_Service.dtos.RegisterRecord;
-
-import java.util.Map;
+import com.kerackdiaz.User_Service.dtos.RegisteredDTO;
 
 public interface UserService {
 
-    Map<String,Object> Register(RegisterRecord registerRecord);
+    RegisteredDTO Register(RegisterRecord registerRecord) throws Exception;
 }

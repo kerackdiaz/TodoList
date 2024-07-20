@@ -2,6 +2,7 @@ package com.kerackdiaz.User_Service.controllers;
 
 
 import com.kerackdiaz.User_Service.dtos.RegisterRecord;
+import com.kerackdiaz.User_Service.dtos.RegisteredDTO;
 import com.kerackdiaz.User_Service.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,13 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRecord registerRecord) {
-        return ResponseEntity.ok(userService.Register(registerRecord));
+        try {
+            RegisteredDTO newUser = userService.Register(registerRecord);
+            return ResponseEntity.ok(newUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body("An error occurred");
+        }
     }
 }
